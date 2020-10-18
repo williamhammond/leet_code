@@ -19,4 +19,61 @@ mod tests {
         assert_eq!(fancy.get_index(1), 34); // return 34
         assert_eq!(fancy.get_index(2), 20); // return 20
     }
+
+    #[test]
+    fn it_handles_big_number() {
+        let fancy = Fancy::new();
+
+        fancy.append(12);
+        fancy.append(8);
+        assert_eq!(fancy.get_index(1), 8);
+        fancy.append(12);
+        assert_eq!(fancy.get_index(0), 12);
+        fancy.add_all(12);
+        fancy.append(8);
+        assert_eq!(fancy.get_index(2), 24);
+        assert_eq!(fancy.get_index(2), 24);
+        fancy.append(4);
+        fancy.append(13);
+        assert_eq!(fancy.get_index(4), 4);
+        fancy.append(12);
+        assert_eq!(fancy.get_index(6), 12);
+        fancy.append(11);
+        assert_eq!(fancy.get_index(1), 20);
+        fancy.append(10);
+        assert_eq!(fancy.get_index(2), 24);
+        fancy.mult_all(3);
+        fancy.add_all(1);
+        assert_eq!(fancy.get_index(6), 37);
+        fancy.append(14);
+        fancy.add_all(5);
+        assert_eq!(fancy.get_index(6), 42);
+        fancy.mult_all(12);
+        assert_eq!(fancy.get_index(3), 360);
+        fancy.mult_all(12);
+        fancy.add_all(15);
+        fancy.add_all(6);
+        fancy.append(7);
+        fancy.mult_all(8);
+        fancy.append(13);
+        fancy.append(15);
+        fancy.append(15);
+        fancy.mult_all(10);
+        assert_eq!(fancy.get_index(9), 220560);
+        fancy.mult_all(12);
+        fancy.mult_all(12);
+        fancy.mult_all(9);
+        assert_eq!(fancy.get_index(9), 285845760);
+        fancy.add_all(9);
+        fancy.append(9);
+        fancy.mult_all(4);
+        fancy.add_all(8);
+        fancy.add_all(11);
+        fancy.mult_all(15);
+        fancy.add_all(9);
+        fancy.add_all(1);
+        fancy.append(4);
+        fancy.append(10);
+        assert_eq!(fancy.get_index(9), 150746316);
+    }
 }

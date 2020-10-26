@@ -69,13 +69,20 @@ impl Solution {
                     window_lower += 1;
                     current = s.chars().nth(window_lower).unwrap();
                 }
-                let count = result_map.get_mut(&current).unwrap();
-                if  *count > 0 {
-                    *count -= 1;
+                if result_map.get(&current).is_some() {
+                    let count = result_map.get_mut(&current).unwrap();
+                    if  *count > 0 {
+                        *count -= 1;
+                    }
+                    if *count == 0 {
+                        result_map.remove(&current);
+                    }
                 }
-                if *count == 0 {
-                    result_map.remove(&current);
+
+                if result_map.is_empty() {
+                    result_string = &s[window_lower..window_upper + 1];
                 }
+
                 window_upper = window_lower;
             }
             window_upper += 1;

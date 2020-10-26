@@ -13,4 +13,12 @@ path = "fancy_sequence/src/test.rs"
 name = "run-fancy"
 path = "fancy_sequence/src/main.rs"
 
+[[bin]]
+name = "test-minimum-window-substring"
+path = "minimum_window_substring/src/test.rs"
+
+[[bin]]
+name = "run-minimum-window-substring"
+path = "minimum_window_substring/src/main.rs"
+
 [dependencies]

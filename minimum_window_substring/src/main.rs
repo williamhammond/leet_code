@@ -36,16 +36,11 @@ impl Solution {
         let mut window_upper: usize = 0;
         let mut min_window = usize::MAX;
         let mut result_string = "";
-        let mut window_map: HashMap<char, usize>= HashMap::new();
         let mut result_map = t_map.clone();
-        let mut first_sequence = 0;
 
-        // window_map.insert(s.chars[0], 1);
-        // for (i, c) in s.chars().enumerate() {
 
-        for i in 0..s.len() {
-            let c = s.chars().nth(i).unwrap();
-            window_upper = i;
+        while window_upper != s.len() && window_lower != s.len() {
+            let c = s.chars().nth(window_upper).unwrap();
 
             if result_map.contains_key(&c) {
                 let count = result_map.get_mut(&c).unwrap();
@@ -56,25 +51,34 @@ impl Solution {
                     result_map.remove(&c);
                 }
             } else {
-                if i != 0 && window_upper - 1 == window_lower && !result_map.is_empty() && result_map == t_map {
-                    window_lower = i + 1;
+                if window_upper != 0 && window_upper - 1 == window_lower && !result_map.is_empty() && result_map == t_map {
+                    window_lower += 1;
                 }
             }
 
             if result_map.is_empty() {
-                if min_window >= window_upper - window_lower {
+                result_map = t_map.clone();
+
+                if min_window > window_upper - window_lower {
                     result_string = &s[window_lower..window_upper + 1];
                     min_window = window_upper - window_lower;
                 }
-
                 window_lower += 1;
+                let mut current = s.chars().nth(window_lower).unwrap();
+                while window_lower < window_upper && !t.contains(current) {
+                    window_lower += 1;
+                    current = s.chars().nth(window_lower).unwrap();
+                }
+                let count = result_map.get_mut(&current).unwrap();
+                if  *count > 0 {
+                    *count -= 1;
+                }
+                if *count == 0 {
+                    result_map.remove(&current);
+                }
                 window_upper = window_lower;
-                result_map = t_map.clone();
-
-
-                window_lower = window_lower + 1;
-                window_upper = i
             }
+            window_upper += 1;
         }
 
         if min_window != usize::MAX {
